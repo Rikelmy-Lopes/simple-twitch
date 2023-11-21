@@ -3,7 +3,7 @@
         {
             "source": "/:path*",
             "permanent": false,
-            "destination": "/:path*"
+            "destination": "/"
         }
     ]
 }
