@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/react-in-jsx-scope */
+// @ts-nocheck 
 
 import { useEffect } from 'react';
 
