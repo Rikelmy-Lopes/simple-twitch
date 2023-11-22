@@ -5,6 +5,7 @@
 import { useParams } from 'react-router-dom';
 import { getParent } from '../Utils/utils';
 import { useEffect } from 'react';
+import { LoginButton } from '../Components/LoginButton';
 
 export function Live() {
   const { channel } = useParams();
@@ -38,9 +39,7 @@ export function Live() {
   return(
     <main>
       <div id='twitch-player'></div>
-      <a className='link' target='_blank' href="https://www.twitch.tv/login" rel="noreferrer">
-        Login
-      </a>
+      <LoginButton />
     </main>
   );
 }
