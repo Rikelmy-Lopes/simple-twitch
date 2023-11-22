@@ -3,7 +3,7 @@
 // @ts-nocheck 
 
 import { useParams } from 'react-router-dom';
-import { getParent } from '../Utils/utils';
+import { getParent, setPlayerConfig } from '../Utils/utils';
 import { useEffect } from 'react';
 import { LoginButton } from '../Components/LoginButton';
 
@@ -22,11 +22,14 @@ export function Live() {
       height: 300,
       channel: getChannel(),
       parent: getParent(),
-      quality: '160p30'
     };
 
     if (!player) {
       player = new Twitch.Player('twitch-player', options);
+      
+      player.addEventListener(Twitch.Player.READY, () => {
+        setPlayerConfig(player);
+      });
     }
 
   }

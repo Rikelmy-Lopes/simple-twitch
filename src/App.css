@@ -1,3 +1,7 @@
+body {
+    background: #212125;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -7,6 +11,7 @@ main {
     align-items: center;
     justify-content: space-evenly;
     padding: 50px 0px;
+    background: #212125;
 }
 
 .link {
@@ -19,4 +24,8 @@ main {
 
 .link:hover {
     background-color: #772ce8;
+}
+
+iframe {
+    border-radius: 10px;
 }

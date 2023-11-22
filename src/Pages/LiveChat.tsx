@@ -4,7 +4,7 @@
 
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getParent } from '../Utils/utils';
+import { getParent, setPlayerConfig } from '../Utils/utils';
 import { LoginButton } from '../Components/LoginButton';
 import { ChatIframe } from '../Components/ChatIframe';
 
@@ -27,6 +27,10 @@ export function LiveChat() {
 
     if (!player) {
       player = new Twitch.Player('twitch-player', options);
+
+      player.addEventListener(Twitch.Player.READY, () => {
+        setPlayerConfig(player);
+      });
     }
 
   }

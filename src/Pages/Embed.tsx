@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-nocheck 
 import { useParams } from 'react-router-dom';
-import { getParent } from '../Utils/utils';
+import { getParent, setPlayerConfig } from '../Utils/utils';
 import { useEffect } from 'react';
 import { LoginButton } from '../Components/LoginButton';
 
@@ -20,15 +20,15 @@ export function Embed() {
       width: 350,
       height: 650,
       channel: getChannel(),
-      parent: getParent()
+      parent: getParent(),
+      layout: 'video-with-chat'
     };
   
     embed = new Twitch.Embed('twitch-embed', options);
     
     embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
       const player = embed.getPlayer();
-      player.setQuality('160p30');
-      player.setVolume(0.05);
+      setPlayerConfig(player);
     });
   }
   
