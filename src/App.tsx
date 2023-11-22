@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import { LiveChat } from './Pages/LiveChat';
 import { Chat } from './Pages/Chat';
 import { Live } from './Pages/Live';
+import { Embed } from './Pages/Embed';
 
 function App() {
 
@@ -16,6 +17,8 @@ function App() {
         <Route path='/chat/:channel' Component={Chat} />
         <Route path='/live' Component={Live} />
         <Route path='/live/:channel' Component={Live} />
+        <Route path='/embed' Component={Embed} />
+        <Route path='/embed/:channel' Component={Embed} />
       </Routes>
     </BrowserRouter>
   );
