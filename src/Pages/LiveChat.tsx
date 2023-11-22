@@ -16,7 +16,7 @@ export function LiveChat() {
 
   function initPlayer() {
     const options = {
-      width: 400,
+      width: 350,
       height: 300,
       channel: getChannel(),
       parent: getParent(),
@@ -39,8 +39,8 @@ export function LiveChat() {
     <main>
       <div id='twitch-player'></div>
       <iframe src={`https://www.twitch.tv/embed/${getChannel()}/chat?parent=${getParent()}`}
-        height="400"
-        width="300">
+        height="450"
+        width="350">
       </iframe>
       <a className='link' target='_blank' href="https://www.twitch.tv/login" rel="noreferrer">
         Login

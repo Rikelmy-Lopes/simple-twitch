@@ -17,7 +17,7 @@ export function Live() {
 
   function initPlayer() {
     const options = {
-      width: 400,
+      width: 350,
       height: 300,
       channel: getChannel(),
       parent: getParent(),
