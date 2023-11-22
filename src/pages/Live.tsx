@@ -3,9 +3,9 @@
 // @ts-nocheck 
 
 import { useParams } from 'react-router-dom';
-import { getParent, setPlayerConfig } from '../Utils/utils';
+import { getParent, setPlayerConfig } from '../utils/utils';
 import { useEffect } from 'react';
-import { LoginButton } from '../Components/LoginButton';
+import { LoginButton } from '../components/LoginButton';
 
 export function Live() {
   const { channel } = useParams();

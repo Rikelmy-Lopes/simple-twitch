@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { getParent } from '../Utils/utils';
+import { getParent } from '../utils/utils';
 
 export function ChatIframe() {
   const { channel } = useParams();

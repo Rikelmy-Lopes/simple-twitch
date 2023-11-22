@@ -1,9 +1,9 @@
 
 import './App.css';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import { Chat } from './Pages/Chat';
-import { Live } from './Pages/Live';
-import { Embed } from './Pages/Embed';
+import { Chat } from './pages/Chat';
+import { Live } from './pages/Live';
+import { Embed } from './pages/Embed';
 
 function App() {
 
