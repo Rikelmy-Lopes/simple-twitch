@@ -9,6 +9,7 @@ export function Chat() {
     return channel || 'twitch';
   }
 
+
   return (
     <main>
       <iframe src={`https://www.twitch.tv/embed/${getChannel()}/chat?parent=${getParent()}`}
