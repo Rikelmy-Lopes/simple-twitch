@@ -21,7 +21,8 @@ export function Embed() {
       height: 650,
       channel: getChannel(),
       parent: getParent(),
-      layout: 'video-with-chat'
+      layout: 'video-with-chat',
+      theme: 'dark'
     };
   
     embed = new Twitch.Embed('twitch-embed', options);
