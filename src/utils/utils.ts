@@ -6,13 +6,5 @@ export function getParent() {
 }
 
 export function setPlayerConfig(player: any) {
-  player.setQuality('160p30');
-  player.setMuted(false);
   player.setVolume(0.05);
-}
-
-export function reloadPage(timeout: number) {
-  setTimeout(() => {
-    location.reload();
-  }, timeout);
 }

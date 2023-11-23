@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-nocheck 
 import { useParams } from 'react-router-dom';
-import { getParent, reloadPage, setPlayerConfig } from '../utils/utils';
+import { getParent, setPlayerConfig } from '../utils/utils';
 import { useEffect, useState } from 'react';
 import { LoginButton } from '../components/LoginButton';
 import { AudioOnly } from '../components/AudioOnly';
@@ -19,6 +19,13 @@ export function EmbedTest() {
     return channel || 'twitch';
   }
 
+  function rebuildTwitch(timeout: number) {
+    setTimeout(() => {
+      embed.destroy();
+      initTwitch();
+    }, timeout);
+  }
+
 
   function initTwitch() {
     const options = {
@@ -27,7 +34,9 @@ export function EmbedTest() {
       channel: getChannel(),
       parent: getParent(),
       layout: 'video-with-chat',
-      theme: 'dark'
+      theme: 'dark',
+      muted: false,
+      quality: '160p30',
     };
   
     embed = new Twitch.Embed('twitch-embed', options);
@@ -42,11 +51,11 @@ export function EmbedTest() {
     });
       
     embed.addEventListener(Twitch.Embed.OFFLINE, () => {
-      reloadPage(RELOAD_TIMEOUT);
+      rebuildTwitch(RELOAD_TIMEOUT);
     });
       
     embed.addEventListener(Twitch.Embed.ERROR, () => {
-      reloadPage(RELOAD_TIMEOUT);
+      rebuildTwitch(RELOAD_TIMEOUT);
     });
 
   }
