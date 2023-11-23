@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { getParent, reloadPage, setPlayerConfig } from '../utils/utils';
 import { useEffect, useState } from 'react';
 import { LoginButton } from '../components/LoginButton';
+import { AudioOnly } from '../components/AudioOnly';
 
 
 export function EmbedTest() {
@@ -65,8 +66,14 @@ export function EmbedTest() {
 
   return(
     <main>
-      <input type="checkbox" defaultChecked onChange={() => setIsVisible(!isVisible)} />
+      <div className='toggle-hidden-card'>
+        <span >Ocultar Twitch?</span>
+        <input type="checkbox" onChange={() => setIsVisible(!isVisible)} />
+      </div>
       <div style={{ display: isVisible ? 'block' : 'none' }} id="twitch-embed"></div>
+      {
+        !isVisible ? <AudioOnly /> : null
+      }
       <LoginButton />
     </main>
   );

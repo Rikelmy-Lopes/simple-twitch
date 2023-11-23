@@ -29,3 +29,26 @@ main {
 iframe {
     border-radius: 10px;
 }
+
+span {
+    color: white;
+    font-weight: 600;
+}
+
+p {
+    color: white;
+    font-weight: 500;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}
+
+.toggle-hidden-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
