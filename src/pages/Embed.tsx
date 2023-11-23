@@ -11,23 +11,36 @@ import { AudioOnly } from '../components/AudioOnly';
 export function Embed() {
   const [isVisible, setIsVisible] = useState(true);
   const { channel } = useParams();
-  const RELOAD_TIMEOUT = 10 * 60 * 1000; // 10 minutes
+  const RELOAD_INTERVAL = 10 * 60 * 1000; // 10 minutes
   let embed: any;
   let player: any;
   
-  function getChannel() {
-    return channel || 'twitch';
-  }
+  const getChannel = () => channel || 'twitch';
 
-  function rebuildTwitch(timeout: number) {
+  const rebuildTwitch = (timeout: number) => {
     setTimeout(() => {
       embed.destroy();
       initTwitch();
     }, timeout);
-  }
+  };
+
+  const setListeners = (embed: any, player: any) => {
+    embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
+      setPlayerConfig(player);
+    });
+      
+    embed.addEventListener(Twitch.Embed.OFFLINE, () => {
+      rebuildTwitch(RELOAD_INTERVAL);
+    });
+      
+    embed.addEventListener(Twitch.Embed.ERROR, () => {
+      rebuildTwitch(RELOAD_INTERVAL);
+    });
+
+  };
 
 
-  function initTwitch() {
+  const initTwitch = () => {
     const options = {
       width: 350,
       height: 650,
@@ -42,45 +55,30 @@ export function Embed() {
     embed = new Twitch.Embed('twitch-embed', options);
     player = embed.getPlayer();
     setListeners(embed, player);
-  }
+  };
 
 
-  function setListeners(embed: any, player: any) {
-    embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
-      setPlayerConfig(player);
-    });
-      
-    embed.addEventListener(Twitch.Embed.OFFLINE, () => {
-      rebuildTwitch(RELOAD_TIMEOUT);
-    });
-      
-    embed.addEventListener(Twitch.Embed.ERROR, () => {
-      rebuildTwitch(RELOAD_TIMEOUT);
-    });
-
-  }
+  const toggleVisibility = () => setIsVisible(!isVisible);
   
+
   useEffect(() => {
     initTwitch();
-  }, []);
 
-
-  useEffect(() => {
     return () => {
       embed.destroy();
     };
   }, []);
-
+  
 
   return(
     <main>
       <div className='toggle-hidden-card'>
-        <span >Ocultar Twitch?</span>
-        <input type="checkbox" onChange={() => setIsVisible(!isVisible)} />
+        <label htmlFor='hide-twitch' >Ocultar Twitch?</label>
+        <input id='hide-twitch' type="checkbox" onChange={toggleVisibility} />
       </div>
       <div style={{ display: isVisible ? 'block' : 'none' }} id="twitch-embed"></div>
       {
-        !isVisible ? <AudioOnly /> : null
+        !isVisible && <AudioOnly />
       }
       <LoginButton />
     </main>
