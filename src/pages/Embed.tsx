@@ -14,13 +14,14 @@ export function Embed() {
   const RELOAD_INTERVAL = 10 * 60 * 1000; // 10 minutes
   let embed: any;
   let player: any;
+  let wakeLock: WakeLockSentinel | null = null;
   
   const getChannel = () => channel || 'twitch';
 
   const acquireWakeLock = async () => {
     if('wakeLock' in navigator){
       try {
-        await navigator.wakeLock.request('screen');
+        wakeLock = await navigator.wakeLock.request('screen');
       } catch(err) {
         alert('Erro ao solicitar o bloqueio de tela');
         console.log(err.name, err.message);
