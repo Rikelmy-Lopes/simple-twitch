@@ -25,6 +25,8 @@ export function Embed() {
         alert('Erro ao solicitar o bloqueio de tela');
         console.log(err.name, err.message);
       }
+    } else {
+      alert('WakeLock não disponível');
     }
   };
   
@@ -49,6 +51,9 @@ export function Embed() {
       rebuildTwitch(RELOAD_INTERVAL);
     });
 
+    embed.addEventListener(Twitch.Embed.PLAYBACK_BLOCKED, () => {
+      rebuildTwitch(RELOAD_INTERVAL);
+    });
   };
 
 
