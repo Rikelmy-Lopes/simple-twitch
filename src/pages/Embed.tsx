@@ -17,6 +17,18 @@ export function Embed() {
   
   const getChannel = () => channel || 'twitch';
 
+  const acquireWakeLock = async () => {
+    if('wakeLock' in navigator){
+      try {
+        await navigator.wakeLock.request('screen');
+      } catch(err) {
+        alert('Erro ao solicitar o bloqueio de tela');
+        console.log(err.name, err.message);
+      }
+    }
+  };
+  
+
   const rebuildTwitch = (timeout: number) => {
     setTimeout(() => {
       embed.destroy();
@@ -63,6 +75,7 @@ export function Embed() {
 
   useEffect(() => {
     initTwitch();
+    acquireWakeLock();
 
     return () => {
       embed.destroy();
