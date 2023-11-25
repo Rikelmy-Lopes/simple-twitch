@@ -20,6 +20,7 @@ main {
     background-color: #9147ff;
     padding: 10px 25px;
     border-radius: 8px;
+    font-weight: 900;
 }
 
 .link:hover {
