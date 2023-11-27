@@ -8,7 +8,8 @@ export default defineConfig({
   build: {
     outDir: '../dist',
     emptyOutDir: true,
-    minify: true
+    minify: true,
+    target: 'es2019'
   },
   envDir: '../',
   server: {
