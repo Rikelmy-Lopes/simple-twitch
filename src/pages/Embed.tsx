@@ -12,7 +12,7 @@ export function Embed() {
   const [isVisible, setIsVisible] = useState(false);
   const { channel } = useParams();
   const RELOAD_INTERVAL = 10 * 60 * 1000; // 10 minutes
-  const PAGE_RELOAD_INTERVAL = 60 * 60 * 1000 * 3 // 3 hours
+  const PAGE_RELOAD_INTERVAL = 60 * 60 * 1000 * 3; // 3 hours
   let embed: any;
   let player: any;
   let wakeLock: WakeLockSentinel | null = null;
@@ -34,9 +34,9 @@ export function Embed() {
 
   const reloadPage = (timeout: number) => {
     setTimeout(() => {
-      window.location.reload()
-    }, timeout)
-  }
+      window.location.reload();
+    }, timeout);
+  };
 
   const rebuildTwitch = (timeout: number) => {
     setTimeout(() => {
