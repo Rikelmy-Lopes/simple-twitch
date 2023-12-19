@@ -9,20 +9,21 @@ import { AudioOnly } from '../components/AudioOnly';
 
 
 export function Embed() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const { channel } = useParams();
   const RELOAD_INTERVAL = 10 * 60 * 1000; // 10 minutes
+  const PAGE_RELOAD_INTERVAL = 60 * 60 * 1000 * 3 // 3 hours
   let embed: any;
   let player: any;
   let wakeLock: WakeLockSentinel | null = null;
-  
+
   const getChannel = () => channel || 'twitch';
 
   const acquireWakeLock = async () => {
-    if('wakeLock' in navigator){
+    if ('wakeLock' in navigator) {
       try {
         wakeLock = await navigator.wakeLock.request('screen');
-      } catch(err) {
+      } catch (err) {
         alert('Erro ao solicitar o bloqueio de tela');
         console.log(err.name, err.message);
       }
@@ -30,7 +31,12 @@ export function Embed() {
       alert('WakeLock não disponível');
     }
   };
-  
+
+  const reloadPage = (timeout: number) => {
+    setTimeout(() => {
+      window.location.reload()
+    }, timeout)
+  }
 
   const rebuildTwitch = (timeout: number) => {
     setTimeout(() => {
@@ -43,11 +49,11 @@ export function Embed() {
     embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
       setPlayerConfig(player);
     });
-      
+
     embed.addEventListener(Twitch.Embed.OFFLINE, () => {
       rebuildTwitch(RELOAD_INTERVAL);
     });
-      
+
     embed.addEventListener(Twitch.Embed.ERROR, () => {
       rebuildTwitch(RELOAD_INTERVAL);
     });
@@ -69,7 +75,7 @@ export function Embed() {
       muted: false,
       quality: '160p30',
     };
-  
+
     embed = new Twitch.Embed('twitch-embed', options);
     player = embed.getPlayer();
     setListeners(embed, player);
@@ -77,23 +83,24 @@ export function Embed() {
 
 
   const toggleVisibility = () => setIsVisible(!isVisible);
-  
+
 
   useEffect(() => {
     initTwitch();
     acquireWakeLock();
+    reloadPage(PAGE_RELOAD_INTERVAL);
 
     return () => {
       embed.destroy();
     };
   }, []);
-  
 
-  return(
+
+  return (
     <main>
       <div className='toggle-hidden-card'>
         <label htmlFor='hide-twitch' >Ocultar Twitch?</label>
-        <input id='hide-twitch' type="checkbox" onChange={toggleVisibility} />
+        <input id='hide-twitch' type="checkbox" defaultChecked={true} onChange={toggleVisibility} />
       </div>
       <div style={{ display: isVisible ? 'block' : 'none' }} id="twitch-embed"></div>
       {
